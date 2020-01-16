@@ -19,15 +19,15 @@ num_cpus = os.cpu_count()
 print (" Using {} CPUs for processing.".format(num_cpus)) 
 
 # Manually define the number of workers the default is set to number of CPUs
-num_workers = num_cpus
+num_workers = num_workers = max(num_cpus, 30)
 print ("Initializing {} workers for processing.".format(num_workers)) 
 
 # Initialize ray
 ray.init(num_cpus = num_cpus)
 
 # Define a test function which should be executed parallely, default num of cpus is 1, change it as required
-@ray.remote(num_cpus = 1)
-def test_function_parallel(ii, a, b):
+@ray.remote
+def test_function_parallel(ii, image_path):
     
     img = cv2.imread(image_path)
     cv2.imwrite(os.path.join(output_path, str(ii) + ".jpg"), img)
@@ -39,16 +39,16 @@ workers = [test_function_parallel for _ in range(num_workers)]
 
 a = 1
 b = 1
-max_iters = total_iters
+max_iters = min(10000, total_iters - 1)
 object_ids = []
 start = time.time()
 for ii in range(total_iters):
 
-    object_id = workers[int(ii%num_workers)].remote(ii, a, b)
+    object_id = workers[int(ii%num_workers)].remote(ii, image_path)
     object_ids.append(object_id)
     
     # after max_iters the objects are fetched before processing further iterations
-    if ii % max_iters == 0 :
+    if ii % max_iters == 0 or ii == len(range(total_iters)):
         ray.get(object_ids)
         object_ids = []
 
@@ -57,21 +57,21 @@ ray.get(object_ids)
 print("Time taken by Parallel Execution in seconds : ", time.time() - start)   
 
 
-#########################################################
-        # Serial Execution of test function #
-#########################################################
+# #########################################################
+#         # Serial Execution of test function #
+# #########################################################
 
-def test_function_serial(ii, a, b):
+# def test_function_serial(ii, a, b):
 
-    img = cv2.imread(image_path)
-    cv2.imwrite(os.path.join(output_path, str(ii) + ".jpg"), img)
+#     img = cv2.imread(image_path)
+#     cv2.imwrite(os.path.join(output_path, str(ii) + ".jpg"), img)
     
-    return
+#     return
 
-a = 1
-b = 1
-start = time.time()
-for ii in range(total_iters):
-    test_function_serial(ii,a,b)
+# a = 1
+# b = 1
+# start = time.time()
+# for ii in range(total_iters):
+#     test_function_serial(ii,a,b)
     
-print("Time taken by Serial Execution in seconds : ", time.time() - start)   
+# print("Time taken by Serial Execution in seconds : ", time.time() - start)   
