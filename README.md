@@ -29,17 +29,3 @@ The purpose of this function is to do that using multiprocessing module of pytho
 
 
 The variables in the python file should be adjust based on the computation power of the machine.
-
-
-
-
-
-
-
-
-
-
-
-
-
-
