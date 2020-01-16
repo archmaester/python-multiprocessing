@@ -14,12 +14,19 @@ If number of iterations is 1000, then serial execution will take atleast 1000s t
 
 The purpose of this function is to do that using multiprocessing module of python. My system has a 12 core CPU. Each function call takes approx 1s to execute
  ___________________________________________________
+ 
 |Iterations | Parallel (seconds) | Serial (seconds) | 
+
 |___________________________________________________|
+
 |1000       | 4.2s               | 1000s            |
+
 |10000      | 37.4s              | 10000s           | 
+
 |100000     | 360.01s            | 100000s          | 
+
 |___________________________________________________|
+
 
 The variables in the python file should be adjust based on the computation power of the machine.
 
