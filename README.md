@@ -19,7 +19,5 @@ The purpose of this function is to do that using multiprocessing module of pytho
 |1000 |4.2s | 1000s |
 |10000 |37.4s | 10000s |
 |10000 |360.01s | 10000s |
---------------------------
-
 
 The variables in the python file should be adjust based on the computation power of the machine.
