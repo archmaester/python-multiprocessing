@@ -16,8 +16,8 @@ The purpose of this function is to do that using multiprocessing module of pytho
  
 |Iterations|Parallel(seconds)|Serial (seconds)| 
 |----------|-----------------|----------------|
-|1000 |4.2s | 1000s |
-|10000 |37.4s | 10000s |
-|10000 |360.01s | 10000s |
+|1,000 |4.2s | 1,000s |
+|10,000 |37.4s | 10,000s |
+|1,00,000 |360.01s | 1,00,000s |
 
 The variables in the python file should be adjust based on the computation power of the machine.
