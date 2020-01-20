@@ -13,7 +13,7 @@ num_cpus = os.cpu_count()
 print (" Using {} CPUs for processing.".format(num_cpus)) 
 
 # Manually define the number of workers the default is set to number of CPUs
-num_workers = num_workers = max(num_cpus, 30)
+num_workers = num_workers = max(num_cpus, 100)
 print ("Initializing {} workers for processing.".format(num_workers)) 
 
 # Initialize ray
